@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import logo from "../../assets/logo.png"
+import logo from "../../assets/logoTradeFlow.png"
+import HeaderButton from './HeaderButton';
 
 function Header() {
 
@@ -16,13 +17,26 @@ function Header() {
 
                 </div>
             )}
-            <aside className={`fixed top-0 left-o z-40 h-screen w-64 bg-slate-950 border-r border-slate-800 transition-transform duration-300 ease-in-out${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`} >
-                <div className='h-20 flex items-center px-6 border-6 border-slate-900'>
+            <div className={` fixed top-0 left-o z-40 h-screen w-75 bg-slate-800 border-r border-slate-800 transition-transform duration-300 ease-in-out${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`} >
+                <div className=' h-20 flex items-center bg-slate-950 '>
                     <img src={logo} className='h-15 w-auto' />
 
                 </div>
+                <div className='p-2 h-full grid grid-row-25 bg-slate-950 '>
+                    <HeaderButton name="Dashboard" />
+                    <HeaderButton name="Orders" />
+                    <HeaderButton name="Products" />
+                    <HeaderButton name="Customers" />
+                    <HeaderButton name="Settings" />
+                    <div className='row-span-19'>
 
-            </aside>
+                    </div>
+
+
+
+                </div>
+
+            </div>
 
         </div>
     )
