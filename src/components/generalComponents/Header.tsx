@@ -1,8 +1,15 @@
 import React, { useState } from 'react'
 import logo from "../../assets/logoTradeFlow.png"
 import HeaderButton from './HeaderButton';
+import { GoHome, GoInbox, GoTag, GoPeople, GoGear, GoListUnordered } from "react-icons/go";
 
 function Header() {
+
+const firstName = localStorage.getItem("firstName");
+const lastName = localStorage.getItem("lastName");
+const role = localStorage.getItem("role");
+
+
 
     const [isOpen, setIsOpen] = useState(false);
     return (
@@ -14,29 +21,60 @@ function Header() {
             {isOpen && (
                 <div className='fixed inset-0 bg-black/50 z-40 md:hidden'
                     onClick={() => setIsOpen(false)}>
+                    <h1 className='text-white'> x</h1>
 
                 </div>
             )}
-            <div className={` fixed top-0 left-o z-40 h-screen w-75 bg-slate-800 border-r border-slate-800 transition-transform duration-300 ease-in-out${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`} >
-                <div className=' h-20 flex items-center bg-slate-950 '>
-                    <img src={logo} className='h-15 w-auto' />
+
+            <div>
+                <div>
 
                 </div>
-                <div className='p-2 h-full grid grid-row-25 bg-slate-950 '>
-                    <HeaderButton name="Dashboard" />
-                    <HeaderButton name="Orders" />
-                    <HeaderButton name="Products" />
-                    <HeaderButton name="Customers" />
-                    <HeaderButton name="Settings" />
-                    <div className='row-span-19'>
+                <div className={` w-72 fixed top-0   left-0 z-40 h-screen bg-slate-800 border-r border-slate-800 transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`} >
+
+                    <div className='p-4 h-full flex flex-col bg-slate-950 '>
+                        <div className=' h-20 flex items-center bg-slate-950 '>
+                            <img src={logo} className=' h-16 w-auto' />
+                            <div className='text-white'>
+
+                            </div>
+
+                        </div>
+
+                        <div className='flex flex-col  gap-1'>
+                            <HeaderButton name="Dashboard" path='/' icon={<GoHome />} />
+                            <HeaderButton name="Orders" path='/orders' icon={<GoInbox />} />
+                            <HeaderButton name="Products" path='/products' icon={<GoTag />} />
+                            <HeaderButton name="Customers" path='/customers' icon={<GoPeople />} />
+                            <HeaderButton name="Settings" path='/settings' icon={<GoGear />} />
+                        </div>
+
+                        <div className='mt-auto'></div>
+                        <div className='pt-4'>
+                            <div className='flex items-center gap-3 p-3 rounded-xl bg-slate-800 hover:bg-slate-700 cursor-pointer transition-colors'>
+
+                           
+                                <div className='w-10 h-10 rounded-full bg-slate-600 flex items-center justify-center shrink-0'>
+                                    <span className='text-sm font-bold text-white'>{(firstName?.charAt(0)|| "").toUpperCase()+(lastName?.charAt(0)|| "").toUpperCase()}</span>
+                                </div>
+
+                                <div className='flex flex-col overflow-hidden'>
+                                    <span className='text-sm font-medium text-white truncate'>{firstName+" "+lastName}</span>
+                                    <span className='text-xs text-slate-400'>{role}</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
 
                     </div>
 
 
-
                 </div>
-
             </div>
+
 
         </div>
     )
