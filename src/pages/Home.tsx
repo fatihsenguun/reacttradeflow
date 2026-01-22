@@ -1,5 +1,6 @@
 import React from 'react'
 import { GoBriefcase, GoPackage, GoInbox } from "react-icons/go";
+import LineGraph from '../components/homeComponents/LineGraph';
 
 function Home() {
   return (
@@ -55,7 +56,10 @@ function Home() {
         </div>
 
         {/* 2. Satır: Büyük Geniş Kutu (3 kolonu da kaplar) */}
-        <div className='lg:col-span-3 bg-slate-800 h-120 rounded-lg shadow-sm'></div>
+        <div className='p-5 lg:col-span-3 bg-slate-800 min-h-60 xl:h-120 rounded-lg shadow-sm'>
+          <LineGraph />
+
+        </div>
       </div>
 
       {/* --- SAĞ TARAF (1 kolon kaplar) --- */}
