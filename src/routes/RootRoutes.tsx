@@ -7,6 +7,7 @@ import Orders from '../pages/Orders'
 import Products from '../pages/Products'
 import Settings from '../pages/Settings'
 import Customers from '../pages/Customers'
+import Profile from '../pages/Profile'
 
 function RootRoutes() {
     return (
@@ -19,6 +20,7 @@ function RootRoutes() {
                 <Route path='/products' element={<Products />} />
                 <Route path='/settings' element={<Settings />} />
                 <Route path='/customers' element={<Customers />} />
+                <Route path='/profile' element={<Profile />} />
             </Route>
 
 

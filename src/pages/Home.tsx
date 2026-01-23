@@ -7,99 +7,110 @@ import PieChart from '../components/homeComponents/PieChart';
 
 function Home() {
   return (
-    <div className='grid grid-cols-1 lg:grid-cols-4 p-6 gap-6 items-stretch text-slate-200'>
+    <div className='relative min-h-screen bg-slate-950 text-slate-200 overflow-hidden p-6 rounded-lg'>
+      {/**blue light */}
+      <div className='absolute -top-20 -left-20 w-96 h-96 bg-blue-600/10 blur-[120px] rounded-full pointer-events-none '> </div>
+      <div className='absolute top-1/4 -right-20 w-[500px] h-[500px] bg-indigo-700/10 blur-[150px] rounded-full pointer-events-none'></div>
 
-      {/* --- SOL TARAF (3 kolon kaplar) --- */}
-      <div className='lg:col-span-3 grid grid-cols-1 lg:grid-cols-3 gap-6'>
+      <div className='relative z-10' >
+        {/**temel grip yapıları */}
+        <div className='grid grid-cols-1 lg:grid-cols-4 p-6 gap-6 items-stretch text-slate-200'>
 
-        <div className='grid grid-cols-3 bg-slate-800 h-26 rounded-lg shadow-sm flex items-center justify-center hover:bg-slate-700 cursor-pointer transition-colors  gap-4 p-3 '>
+          {/* --- SOL TARAF (3 kolon kaplar) --- */}
+          <div className='lg:col-span-3 grid grid-cols-1 lg:grid-cols-3 gap-6'>
+
+            {/**en üst satır */}
+
+            <div className='grid grid-cols-3 bg-white/5 backdrop-blur-md border border-white/10   h-26 rounded-lg shadow-sm flex items-center justify-center hover:bg-white/10 cursor-pointer  gap-4 p-3 '>
 
 
-          <div className='col-span-1 w-11 h-11 rounded-full bg-slate-600 flex items-center justify-center shrink-0'>
-            <span className='text-sm font-bold text-white'><GoBriefcase className='text-2xl font-2xl' /></span>
+              <div className='col-span-1 w-11 h-11 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0'>
+                <span className='text-sm font-bold text-white '><GoBriefcase className='text-2xl font-2xl' /></span>
+              </div>
+
+              <div className='col-span-2 flex flex-col overflow-hidden'>
+                <span className='text-sm text-slate-400 font-medium  truncate'>Total Sales</span>
+                <span className='text-lg text-emerald-200 font-bold tracking-light'>$ 12.400</span>
+              </div>
+
+            </div>
+            <div className='grid grid-cols-3 h-26 rounded-lg shadow-sm flex items-center justify-center bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 cursor-pointer transition-colors  gap-4 p-3 '>
+
+
+              <div className='col-span-1 w-11 h-11 rounded-full bg-slate-600 flex items-center justify-center shrink-0'>
+                <span className='text-sm font-bold text-white'><GoInbox className='text-2xl font-2xl' /></span>
+              </div>
+
+              <div className='col-span-2 flex flex-col overflow-hidden'>
+                <span className='text-sm font-medium text-slate-400 truncate'>Orders</span>
+                <span className='text-lg text-indigo-200 font-bold'>210</span>
+              </div>
+
+
+
+            </div>
+            <div className='grid grid-cols-3 bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 h-26 rounded-lg shadow-sm flex items-center justify-center  cursor-pointer gap-4 p-3 '>
+
+
+              <div className='col-span-1 w-11 h-11 rounded-full bg-slate-600 flex items-center justify-center shrink-0'>
+                <span className='text-sm font-bold text-white'><GoPackage className='text-2xl font-2xl' /></span>
+              </div>
+
+              <div className='col-span-2 flex flex-col overflow-hidden'>
+                <span className='text-sm font-medium  text-slate-400 truncate'>Total Items</span>
+                <span className='text-lg text-sky-200 font-bold'>342</span>
+              </div>
+            </div>
+
+            {/* 2. Satır: Büyük Geniş Kutu (3 kolonu da kaplar) */}
+            <div className='p-5 lg:col-span-3 bg-white/5 backdrop-blur-md border border-white/10 min-h-60 xl:h-120 rounded-lg shadow-sm'>
+              <LineGraph />
+
+            </div>
+            {/**3. satır */}
+            <div className='overflow-y-auto scrollbar-thin px-5 lg:col-span-3 bg-white/5 backdrop-blur-md border border-white/10  h-60 xl:h-80 rounded-lg shadow-sm '>
+              <div className='h-15  items-center flex  '> Top Selling Products</div>
+
+
+              <div className='px-1  w-full h-10 grid grid-cols-12 text-center '  >
+                <div className=' col-span-3  lg:col-span-6  flex justify-center lg:justify-start items-center  lg:px-8' >Products </div>
+                <div className='col-span-3  lg:col-span-2   flex justify-center items-center'>Status</div>
+                <div className='col-span-3  lg:col-span-2   flex justify-center items-center'>Sales</div>
+                <div className='col-span-3  lg:col-span-2   flex justify-center items-center'>Earning</div>
+
+              </div>
+              <TopSellingItemBox />
+              <TopSellingItemBox />
+              <TopSellingItemBox />
+              <TopSellingItemBox />
+              <TopSellingItemBox />
+
+            </div>
+
           </div>
 
-          <div className='col-span-2 flex flex-col overflow-hidden'>
-            <span className='text-sm text-slate-300 font-medium  truncate'>Total Sales</span>
-            <span className='text-lg text-teal-300 font-bold'>$ 12.400</span>
+          {/* --- SAĞ TARAF (1 kolon kaplar) --- */}
+
+          <div className='lg:col-span-1 flex flex-col gap-6'>
+            <div className='flex-1 overflow-hidden bg-white/5 backdrop-blur-md border border-white/10  rounded-lg shadow-sm min-h-60 xl:h-152 p-4  '>
+              <div className='h-15 items-center flex  '> Order Recently</div>
+
+              <ItemBox />
+              <ItemBox />
+              <ItemBox />
+              <ItemBox />
+            </div>
+            {/**2.satır */}
+            <div className=' bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 rounded-lg shadow-sm min-h-60 xl:h-80 p-4'>
+              <div className='h-15  sticky top-0 z-10 items-center flex  '> Monthly Profits</div>
+              <PieChart />
+            </div>
           </div>
+
+
 
         </div>
-        <div className='grid grid-cols-3 bg-slate-800 h-26 rounded-lg shadow-sm flex items-center justify-center hover:bg-slate-700 cursor-pointer transition-colors  gap-4 p-3 '>
-
-
-          <div className='col-span-1 w-11 h-11 rounded-full bg-slate-600 flex items-center justify-center shrink-0'>
-            <span className='text-sm font-bold text-white'><GoInbox className='text-2xl font-2xl' /></span>
-          </div>
-
-          <div className='col-span-2 flex flex-col overflow-hidden'>
-            <span className='text-sm font-medium text-white truncate'>Orders</span>
-            <span className='text-lg text-sky-300 font-bold'>210</span>
-          </div>
-
-
-
-        </div>
-        <div className='grid grid-cols-3 bg-slate-800 h-26 rounded-lg shadow-sm flex items-center justify-center hover:bg-slate-700 cursor-pointer transition-colors  gap-4 p-3 '>
-
-
-          <div className='col-span-1 w-11 h-11 rounded-full bg-slate-600 flex items-center justify-center shrink-0'>
-            <span className='text-sm font-bold text-white'><GoPackage className='text-2xl font-2xl' /></span>
-          </div>
-
-          <div className='col-span-2 flex flex-col overflow-hidden'>
-            <span className='text-sm font-medium text-white truncate'>Total Items</span>
-            <span className='text-lg text-yellow-300 font-bold'>342</span>
-          </div>
-        </div>
-
-        {/* 2. Satır: Büyük Geniş Kutu (3 kolonu da kaplar) */}
-        <div className='p-5 lg:col-span-3 bg-slate-800 min-h-60 xl:h-120 rounded-lg shadow-sm'>
-          <LineGraph />
-
-        </div>
-        {/**3. satır */}
-        <div className='overflow-y-auto scrollbar-thin px-5 lg:col-span-3 bg-slate-800 h-60 xl:h-80 rounded-lg shadow-sm '>
-          <div className='h-15  sticky top-0 z-10 bg-slate-800 items-center flex  '> Top Selling Products</div>
-
-
-          <div className='px-1 border-b  border-slate-700   bg-slate-800  w-full h-10 grid grid-cols-12 text-center '  >
-            <div className=' col-span-3  lg:col-span-6  flex justify-center lg:justify-start items-center  lg:px-8' >Products </div>
-            <div className='col-span-3  lg:col-span-2   flex justify-center items-center'>Status</div>
-            <div className='col-span-3  lg:col-span-2   flex justify-center items-center'>Sales</div>
-            <div className='col-span-3  lg:col-span-2   flex justify-center items-center'>Earning</div>
-
-          </div>
-          <TopSellingItemBox />
-          <TopSellingItemBox />
-          <TopSellingItemBox />
-          <TopSellingItemBox />
-          <TopSellingItemBox />
-
-        </div>
-
       </div>
-
-      {/* --- SAĞ TARAF (1 kolon kaplar) --- */}
-
-      <div className='lg:col-span-1 flex flex-col gap-6'>
-        <div className='flex-1 overflow-hidden bg-slate-800 rounded-lg shadow-smmin-h-60 xl:h-152 p-4'>
-          <div className='h-15  sticky top-0 z-10 bg-slate-800 items-center flex  '> Order Recently</div>
-
-          <ItemBox />
-          <ItemBox />
-          <ItemBox />
-          <ItemBox />
-        </div>
-        {/**2.satır */}
-        <div className=' bg-slate-800 rounded-lg shadow-sm min-h-60 xl:h-80 p-4'>
-          <div className='h-15  sticky top-0 z-10 bg-slate-800 items-center flex  '> Monthly Profits</div>
-          <PieChart />
-        </div>
-      </div>
-
-
-
     </div>
   )
 }

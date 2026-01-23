@@ -8,7 +8,7 @@ import Layout from './pages/Layout.tsx'
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
 
-     <App />
+     <App  />
  
   </BrowserRouter>
 

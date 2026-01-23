@@ -3,7 +3,7 @@ import women2 from "../../assets/women2.png"
 
 function TopSellingItemBox() {
     return (
-        <div className='px-4 bg-slate-800  border-slate-700 hover:bg-slate-700 w-full h-15 grid grid-cols-12 items-center  text-center rounded-lg'  >
+        <div className='px-4 my-1  bg-white/5 backdrop-blur-md hover:bg-white/10  w-full h-15 grid grid-cols-12 items-center  text-center rounded-lg'  >
             {/**image and name */}
             <div className=' col-span-3 grid grid-cols-4 lg:col-span-6 flex  items-center' >
                 <div className='col-span-3 lg:col-span-1 flex w-full h-15 flex items-center justify-center rouneded-md py-2 '>

@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import logo from "../../assets/logoTradeFlow.png"
 import HeaderButton from './HeaderButton';
 import { GoHome, GoInbox, GoTag, GoPeople, GoGear, GoListUnordered } from "react-icons/go";
+import { useNavigate } from 'react-router';
 
 function Header() {
 
-const firstName = localStorage.getItem("firstName");
-const lastName = localStorage.getItem("lastName");
-const role = localStorage.getItem("role");
+    const firstName = localStorage.getItem("firstName");
+    const lastName = localStorage.getItem("lastName");
+    const role = localStorage.getItem("role");
+
+    const navigate = useNavigate();
 
 
 
@@ -16,12 +19,12 @@ const role = localStorage.getItem("role");
         <div>
             <button onClick={() => setIsOpen(!isOpen)}
                 className={`md:hidden fixed top-4 left-2  p-2 rounded-md bg-slate-800 text-white  ${isOpen ? "translate-x-72" : ""} `} >
-                <svg className={`w-6 h-6 ` } fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} /></svg>
+                <svg className={`w-6 h-6 `} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} /></svg>
             </button>
             {isOpen && (
                 <div className='fixed inset-0 bg-black/50 z-40 md:hidden'
                     onClick={() => setIsOpen(false)}>
-                   
+
 
                 </div>
             )}
@@ -50,20 +53,24 @@ const role = localStorage.getItem("role");
                         </div>
 
                         <div className='mt-auto'></div>
-                        <div className='pt-4'>
+
+                        {/**profile button */}
+
+
+                        <button onClick={() => navigate("/profile")} className='pt-4'>
                             <div className='flex items-center gap-3 p-3 rounded-xl bg-slate-800 hover:bg-slate-700 cursor-pointer transition-colors'>
 
-                           
+
                                 <div className='w-10 h-10 rounded-full bg-slate-600 flex items-center justify-center shrink-0'>
-                                    <span className='text-sm font-bold text-white'>{(firstName?.charAt(0)|| "").toUpperCase()+(lastName?.charAt(0)|| "").toUpperCase()}</span>
+                                    <span className='text-sm font-bold text-white'>{(firstName?.charAt(0) || "").toUpperCase() + (lastName?.charAt(0) || "").toUpperCase()}</span>
                                 </div>
 
-                                <div className='flex flex-col overflow-hidden'>
-                                    <span className='text-sm font-medium text-white truncate'>{firstName+" "+lastName}</span>
-                                    <span className='text-xs text-slate-400'>{role}</span>
+                                <div className='flex flex-col overflow-hidden w-full'>
+                                    <span className='text-sm flex font-medium text-white truncate'>{firstName + " " + lastName}</span>
+                                    <span className='w-full flex display-start text-xs text-slate-400'>{role}</span>
                                 </div>
                             </div>
-                        </div>
+                        </button>
 
 
 
