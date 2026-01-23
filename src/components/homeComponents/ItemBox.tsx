@@ -1,4 +1,5 @@
 import React from 'react'
+import women2 from "../../assets/women2.png"
 
 function ItemBox() {
     return (
@@ -6,12 +7,16 @@ function ItemBox() {
 
 
             <div className='w-10 h-10 rounded-lg bg-slate-600 flex items-center justify-center shrink-0'>
-                <span className='text-sm font-bold text-white'>asd</span>
+                <span className='text-sm font-bold text-white'>
+                    <img className='rounded-md' src={women2} alt="" />
+                </span>
             </div>
 
             <div className='flex flex-col overflow-hidden'>
-                <span className='text-sm font-medium text-white truncate'>asd</span>
-                <span className='text-xs text-slate-400'>asd</span>
+                <span className='text-sm font-medium text-white truncate'>Women Wool Sweater
+
+</span>
+                <span className='text-xs text-slate-400'>Sweater</span>
             </div>
         </div>
     )

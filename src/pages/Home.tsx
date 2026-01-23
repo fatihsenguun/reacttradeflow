@@ -2,6 +2,8 @@ import React from 'react'
 import { GoBriefcase, GoPackage, GoInbox } from "react-icons/go";
 import LineGraph from '../components/homeComponents/LineGraph';
 import ItemBox from '../components/homeComponents/ItemBox';
+import TopSellingItemBox from '../components/homeComponents/TopSellingItemBox';
+import PieChart from '../components/homeComponents/PieChart';
 
 function Home() {
   return (
@@ -57,17 +59,22 @@ function Home() {
 
         </div>
         {/**3. satır */}
-        <div className='p-5  lg:col-span-3 bg-slate-800 min-h-60 xl:h-120 rounded-lg shadow-sm '>
-          <div className='h-10  '>Top Selling Products</div>
+        <div className='overflow-y-auto scrollbar-thin px-5 lg:col-span-3 bg-slate-800 h-60 xl:h-80 rounded-lg shadow-sm '>
+          <div className='h-15  sticky top-0 z-10 bg-slate-800 items-center flex  '> Top Selling Products</div>
 
 
-          <div className='bg-slate-800 border border-slate-700 hover:bg-slate-700 w-full h-10 grid grid-cols-6 text-center rounded-lg'  >
-            <div className='col-span-3  flex justify-center items-center' >Products </div>
-            <div className='col-span-1  flex justify-center items-center'>Status</div>
-            <div className='col-span-1 flex justify-center items-center'>Sales</div>
-            <div className='col-span-1  flex justify-center items-center'>Earning</div>
+          <div className='px-1 border-b  border-slate-700   bg-slate-800  w-full h-10 grid grid-cols-12 text-center '  >
+            <div className=' col-span-3  lg:col-span-6  flex justify-center lg:justify-start items-center  lg:px-8' >Products </div>
+            <div className='col-span-3  lg:col-span-2   flex justify-center items-center'>Status</div>
+            <div className='col-span-3  lg:col-span-2   flex justify-center items-center'>Sales</div>
+            <div className='col-span-3  lg:col-span-2   flex justify-center items-center'>Earning</div>
 
           </div>
+          <TopSellingItemBox />
+          <TopSellingItemBox />
+          <TopSellingItemBox />
+          <TopSellingItemBox />
+          <TopSellingItemBox />
 
         </div>
 
@@ -77,16 +84,21 @@ function Home() {
 
       <div className='lg:col-span-1 flex flex-col gap-6'>
         <div className='flex-1 overflow-hidden bg-slate-800 rounded-lg shadow-smmin-h-60 xl:h-152 p-4'>
+          <div className='h-15  sticky top-0 z-10 bg-slate-800 items-center flex  '> Order Recently</div>
+
           <ItemBox />
           <ItemBox />
           <ItemBox />
           <ItemBox />
         </div>
-         <div className=' bg-slate-800 rounded-lg shadow-smmin-h-60 xl:h-120 p-4'>
-         </div>
+        {/**2.satır */}
+        <div className=' bg-slate-800 rounded-lg shadow-sm min-h-60 xl:h-80 p-4'>
+          <div className='h-15  sticky top-0 z-10 bg-slate-800 items-center flex  '> Monthly Profits</div>
+          <PieChart />
+        </div>
       </div>
-      
-    
+
+
 
     </div>
   )
