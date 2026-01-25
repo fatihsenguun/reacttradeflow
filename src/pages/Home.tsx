@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import type { DtoDashboardSummary } from '../types/requestTypes';
+import type { DtoDashboardSummary, DtoProduct } from '../types/requestTypes';
 import { GoBriefcase, GoPackage, GoInbox } from "react-icons/go";
 import LineGraph from '../components/homeComponents/LineGraph';
 import ItemBox from '../components/homeComponents/ItemBox';
@@ -13,6 +13,8 @@ function Home() {
 const navigate = useNavigate();
 
 const [dashboardSummary, setDashboardSummary]= useState<DtoDashboardSummary | null>(null);
+const[topSellingProducts, setTopSellingProducts]=useState<DtoProduct[]> ([]);
+const[lastOrders, setLastOrders]=useState([]);
 const [isLoading, setIsLoading ]=useState(false);
 
 useEffect(()=>{
@@ -27,6 +29,8 @@ const getSummary = async ()=>{
 
 if ( response && response.data.data){
   setDashboardSummary(response.data.data);
+  setTopSellingProducts(response.data.data.topSellingProducts)
+  setLastOrders(response.data.data.lastOrders)
   console.log(response.data.data);
 
 }
@@ -36,12 +40,6 @@ if ( response && response.data.data){
     
   }
 }
-
-
-
-
-
-
 
 
 
@@ -65,7 +63,7 @@ if ( response && response.data.data){
 
             <div className='col-span-2 flex flex-col overflow-hidden'>
               <span className='text-sm text-slate-400 font-medium  truncate'>Total Sales</span>
-              <span className='text-lg text-emerald-200 font-bold tracking-light'>$ 12.400</span>
+              <span className='text-lg text-emerald-200 font-bold tracking-light'>{dashboardSummary?.totalSales}</span>
             </div>
 
           </div>
@@ -78,7 +76,7 @@ if ( response && response.data.data){
 
             <div className='col-span-2 flex flex-col overflow-hidden'>
               <span className='text-sm font-medium text-slate-400 truncate'>Orders</span>
-              <span className='text-lg text-indigo-200 font-bold'>210</span>
+              <span className='text-lg text-indigo-200 font-bold'>{dashboardSummary?.orderCount}</span>
             </div>
 
 
@@ -93,7 +91,7 @@ if ( response && response.data.data){
 
             <div className='col-span-2 flex flex-col overflow-hidden'>
               <span className='text-sm font-medium  text-slate-400 truncate'>Total Items</span>
-              <span className='text-lg text-sky-200 font-bold'>342</span>
+              <span className='text-lg text-sky-200 font-bold'>{dashboardSummary?.productCount}</span>
             </div>
           </div>
 
@@ -114,11 +112,9 @@ if ( response && response.data.data){
               <div className='col-span-3  lg:col-span-2   flex justify-center items-center'>Earning</div>
 
             </div>
-            <TopSellingItemBox />
-            <TopSellingItemBox />
-            <TopSellingItemBox />
-            <TopSellingItemBox />
-            <TopSellingItemBox />
+   {  topSellingProducts.map((product:DtoProduct)=>(
+    <TopSellingItemBox key={product.id} data={product} />
+   ))    }
 
           </div>
 
@@ -130,10 +126,10 @@ if ( response && response.data.data){
           <div className='flex-1 overflow-hidden bg-white/5 backdrop-blur-md border border-white/10  rounded-lg shadow-sm min-h-60 xl:h-152 p-4  '>
             <div className='h-15 items-center flex  '> Order Recently</div>
 
-            <ItemBox />
-            <ItemBox />
-            <ItemBox />
-            <ItemBox />
+  {  lastOrders.map((order:any)=>(
+    <ItemBox key={order.id} data={order} />
+   ))    }
+         
           </div>
           {/**2.satır */}
           <div className=' bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 rounded-lg shadow-sm min-h-60 xl:h-80 p-4'>
