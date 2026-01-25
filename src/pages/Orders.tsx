@@ -2,7 +2,9 @@ import React from 'react'
 
 function Orders() {
   return (
-    <div>Orders</div>
+    <div>
+       <p className='text-slate-200 text-2xl font-medium'>Orders</p>
+    </div>
   )
 }
 

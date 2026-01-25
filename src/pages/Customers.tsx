@@ -2,7 +2,9 @@ import React from 'react'
 
 function Customers() {
   return (
-    <div>Customers</div>
+    <div>
+         <p className='text-slate-200 text-2xl font-medium'>Customers</p>
+    </div>
   )
 }
 

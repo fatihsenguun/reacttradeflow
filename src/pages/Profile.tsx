@@ -16,11 +16,14 @@ function Profile() {
 
 
   return (
-    <div className='text-white'>
-      <button onClick={logout} className='w-20 h-20 bg-white'>
+    <>
+      <p className='text-slate-200 text-2xl font-medium'>Dashboard</p>
+      <div className='text-white'>
+        <button onClick={logout} className='w-20 h-20 bg-white'>
 
-      </button>
-    </div>
+        </button>
+      </div>
+    </>
   )
 }
 
