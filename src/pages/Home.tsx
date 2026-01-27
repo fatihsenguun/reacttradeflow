@@ -7,39 +7,74 @@ import TopSellingItemBox from '../components/homeComponents/TopSellingItemBox';
 import PieChart from '../components/homeComponents/PieChart';
 import { useNavigate } from 'react-router';
 import api from "../config/axios"
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+import type LineGraphProps from "../components/homeComponents/LineGraph"
+
 
 
 function Home() {
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const [dashboardSummary, setDashboardSummary]= useState<DtoDashboardSummary | null>(null);
-const[topSellingProducts, setTopSellingProducts]=useState<DtoProduct[]> ([]);
-const[lastOrders, setLastOrders]=useState([]);
-const [isLoading, setIsLoading ]=useState(false);
+  const [dashboardSummary, setDashboardSummary] = useState<DtoDashboardSummary | null>(null);
+  const [topSellingProducts, setTopSellingProducts] = useState<DtoProduct[]>([]);
+  const [lastOrders, setLastOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [startDate, setStartDate] = useState(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000));
+  const [endDate, setEndDate] = useState(new Date( Date.now()+ 24*60*60*1000));
+  const [chartData, setChartData] = useState<any[]>([]);
 
-useEffect(()=>{
-  getSummary();
-},[])
+  useEffect(() => {
+    getSummary();
+    getChart()
+  }, [])
+   useEffect(() => {
+    getSummary();
+    getChart()
+  }, [endDate,startDate])
 
-const getSummary = async ()=>{
-  try {
-    setIsLoading(true)
-    const response = await api.get('/rest/api/dashboard/summary');
-    setIsLoading(false)
+  const getSummary = async () => {
+    try {
+      setIsLoading(true)
+      const response = await api.get('/rest/api/dashboard/summary');
+      setIsLoading(false)
 
-if ( response && response.data.data){
-  setDashboardSummary(response.data.data);
-  setTopSellingProducts(response.data.data.topSellingProducts)
-  setLastOrders(response.data.data.lastOrders)
-  console.log(response.data.data);
+      if (response && response.data.data) {
+        setDashboardSummary(response.data.data);
+        setTopSellingProducts(response.data.data.topSellingProducts)
+        setLastOrders(response.data.data.lastOrders)
 
-}
-  } catch (error) {
-    setIsLoading(false)
-    console.log(error);
-    
+
+      }
+    } catch (error) {
+      setIsLoading(false)
+      console.log(error);
+
+    }
   }
-}
+  const getChart = async () => {
+    try {
+      setIsLoading(true)
+      const response = await api.get('/rest/api/dashboard/chart-data', {
+        params: {
+          startDate: startDate,
+          endDate: endDate
+        }
+      });
+      setIsLoading(false)
+
+      if (response) {
+        console.log(response.data.data);
+        setChartData(response.data.data);
+
+
+      }
+    } catch (error) {
+      setIsLoading(false)
+      console.log(error);
+
+    }
+  }
 
 
 
@@ -97,8 +132,31 @@ if ( response && response.data.data){
 
           {/* 2. Satır: Büyük Geniş Kutu (3 kolonu da kaplar) */}
           <div className='p-5 lg:col-span-3 bg-white/5 backdrop-blur-md border border-white/10 min-h-60 xl:h-120 rounded-lg shadow-sm'>
-            <LineGraph />
+            <div className='flex '>
+              <p>Start :</p>
+              <DatePicker
+                selected={startDate}
+                onChange={(date: any) => setStartDate(date.toISOString())}
+                selectsStart
+                startDate={startDate}
+                endDate={endDate}
+                className='custom-date-input text-center bg-slate-700 w-4/5 rounded-md ml-1' />
+              <p>End :</p>
+              <DatePicker
+                selected={endDate}
+                onChange={(date: any) => setEndDate(date.toISOString())}
+                selectsEnd
+                startDate={startDate}
+                endDate={endDate}
+                minDate={startDate}
+                className='custom-date-input text-center bg-slate-700 w-4/5 rounded-md ml-1' />
+            </div>
 
+
+          if (chartData) {
+              <LineGraph chartData={chartData} />
+          }
+       
           </div>
           {/**3. satır */}
           <div className='overflow-y-auto scrollbar-thin px-5 lg:col-span-3 bg-white/5 backdrop-blur-md border border-white/10  h-60 xl:h-80 rounded-lg shadow-sm '>
@@ -112,9 +170,9 @@ if ( response && response.data.data){
               <div className='col-span-3  lg:col-span-2   flex justify-center items-center'>Earning</div>
 
             </div>
-   {  topSellingProducts.map((product:DtoProduct)=>(
-    <TopSellingItemBox key={product.id} data={product} />
-   ))    }
+            {topSellingProducts.map((product: DtoProduct) => (
+              <TopSellingItemBox key={product.id} data={product} />
+            ))}
 
           </div>
 
@@ -126,10 +184,10 @@ if ( response && response.data.data){
           <div className='flex-1 overflow-hidden bg-white/5 backdrop-blur-md border border-white/10  rounded-lg shadow-sm min-h-60 xl:h-152 p-4  '>
             <div className='h-15 items-center flex  '> Order Recently</div>
 
-  {  lastOrders.map((order:any)=>(
-    <ItemBox key={order.id} data={order} />
-   ))    }
-         
+            {lastOrders.map((order: any) => (
+              <ItemBox key={order.id} data={order} />
+            ))}
+
           </div>
           {/**2.satır */}
           <div className=' bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 rounded-lg shadow-sm min-h-60 xl:h-80 p-4'>

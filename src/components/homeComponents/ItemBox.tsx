@@ -2,7 +2,7 @@ import React from 'react'
 import women2 from "../../assets/women2.png"
 
 function ItemBox({ data }: { data: any }) {
-    console.log(data);
+
     return (
         <div className='mb-1 flex items-center gap-3 p-3 rounded-lg backdrop-blur-md  hover:bg-white/10  cursor-pointer transition-colors'>
 

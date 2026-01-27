@@ -2,29 +2,31 @@ import React from 'react'
 import { Line } from "react-chartjs-2"
 import { Chart as ChartJS,Filler,CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js"
 
+interface ChartDataPoint {
+  name: string;  // Tarih (X ekseni)
+  sales: number; // Miktar (Y ekseni)
+}
+interface LineGraphProps {
+  chartData: ChartDataPoint[];
+}
 
 ChartJS.register(CategoryScale,  LinearScale, PointElement, LineElement, Title, Tooltip, Legend,Filler)
 
-function LineGraph() {
+function LineGraph({chartData }:LineGraphProps){
     const options = {
         responsive:true,
       
 
     }
+    if (!chartData ) {
+        return <div className="text-slate-400 text-center py-20">Loading...</div>;
+    }
     const data = {
-        labels: [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-        ],
+        labels: chartData.map((item:ChartDataPoint) =>item.name),
         datasets: [
             {
                 label: "Sales",
-                data: [600, 1200 , 850, 700, 1500, 900, 1000],
+                data: chartData.map((item:ChartDataPoint) => item.sales),
                 borderColor: "rgba(99, 102, 241, 0.6",
                 
                 tension: 0.4,
