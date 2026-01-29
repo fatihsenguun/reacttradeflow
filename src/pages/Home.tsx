@@ -153,9 +153,10 @@ function Home() {
             </div>
 
 
-          if (chartData) {
-              <LineGraph chartData={chartData} />
-          }
+         {
+         chartData?<LineGraph chartData={chartData} /> :<p>Loading..</p>
+           
+         }
        
           </div>
           {/**3. satır */}
