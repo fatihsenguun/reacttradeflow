@@ -2,34 +2,36 @@ import React, { useEffect, useState } from 'react'
 import ProductBox from '../components/productsComponents/ProductBox'
 import women from "../assets/women2.png"
 import api from '../config/axios';
+import type { DtoProduct } from '../types/requestTypes';
 
 
 
 function Products() {
 
 
+
   const [isLoading, setIsLoading] = useState(false);
+  const [products, setProducts] = useState([]);
 
-useEffect(()=>{
-  getProducts();
-},[])
+  useEffect(() => {
+    getProducts();
+  }, [])
 
 
-const getProducts = async () => {
+  const getProducts = async () => {
     try {
       setIsLoading(true)
-      const response = await api.get('/rest/api/product/all',{
-        params:{
-          page:0,
-          size:10
+      const response = await api.get('/rest/api/product/all', {
+        params: {
+          page: 0,
+          size: 10
         }
       });
       setIsLoading(false)
 
       if (response && response.data.data) {
-        console.log(response.data.data);
-      
-
+        setProducts(response.data.data.content);
+   
 
       }
     } catch (error) {
@@ -80,8 +82,11 @@ const getProducts = async () => {
 
 
         </div>
+        {products.map((product:DtoProduct)=>(
+             <ProductBox key={product.id} data={product} />
+        ))}
 
-        <ProductBox />
+     
 
       </div>
 

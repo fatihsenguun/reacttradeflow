@@ -12,7 +12,7 @@ export interface DtoDashboardSummary{
     price:number,
     stock:number,
     totalSalesCount:number,
-    categories:string[],
+    categories:DtoCategory[],
     images:{imageUrl:string}[];
     createdAt:string,
     id:string,
@@ -21,5 +21,9 @@ export interface DtoDashboardSummary{
 
 
 
+
+}
+export interface DtoCategory{
+   name:string
 
 }
