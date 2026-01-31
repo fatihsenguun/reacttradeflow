@@ -48,7 +48,11 @@ function Products() {
 
   return (
     <div>
-      <p className='text-slate-200 text-2xl font-medium'>Products</p>
+     <div className=' flex justify-between'>
+       <p className='text-slate-200 text-2xl font-medium'>Products</p>
+       <button className=' bg-white/15 backdrop-blur-md border border-white/10 cursor-pointer hover:bg-white/10   w-30 h-10 text-sm rounded-lg'>+ Add Product </button>
+     </div>
+
       <div className='p-6'>
 
         <div className='grid grid-cols-6 bg-white/15 backdrop-blur-md border border-white/10   h-15 rounded-lg shadow-sm flex items-center justify-center   gap-4 p-3 '>
