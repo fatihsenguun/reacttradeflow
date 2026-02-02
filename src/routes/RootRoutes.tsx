@@ -8,6 +8,7 @@ import Products from '../pages/Products'
 import Settings from '../pages/Settings'
 import Customers from '../pages/Customers'
 import Profile from '../pages/Profile'
+import ProductAdd from '../components/productsComponents/ProductAdd'
 
 function RootRoutes() {
     return (
@@ -18,6 +19,7 @@ function RootRoutes() {
                 <Route path='/' element={<Home />} />
                 <Route path='/orders' element={<Orders />} />
                 <Route path='/products' element={<Products />} />
+                <Route path='/products/add' element={<ProductAdd />} />
                 <Route path='/settings' element={<Settings />} />
                 <Route path='/customers' element={<Customers />} />
                 <Route path='/profile' element={<Profile />} />

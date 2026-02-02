@@ -3,12 +3,13 @@ import ProductBox from '../components/productsComponents/ProductBox'
 import women from "../assets/women2.png"
 import api from '../config/axios';
 import type { DtoProduct } from '../types/requestTypes';
+import { useNavigate } from 'react-router';
 
 
 
 function Products() {
 
-
+const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState([]);
@@ -50,7 +51,7 @@ function Products() {
     <div>
      <div className=' flex justify-between'>
        <p className='text-slate-200 text-2xl font-medium'>Products</p>
-       <button className=' bg-white/15 backdrop-blur-md border border-white/10 cursor-pointer hover:bg-white/10   w-30 h-10 text-sm rounded-lg'>+ Add Product </button>
+       <button className=' bg-white/15 backdrop-blur-md border border-white/10 cursor-pointer hover:bg-white/10   w-30 h-10 text-sm rounded-lg' onClick={()=>navigate("/products/add")}>+ Add Product </button>
      </div>
 
       <div className='p-6'>
