@@ -59,7 +59,7 @@ const navigate = useNavigate();
         <div className='grid grid-cols-6 bg-white/15 backdrop-blur-md border border-white/10   h-15 rounded-lg shadow-sm flex items-center justify-center   gap-4 p-3 '>
           <div className='col-span-2 w-full h-full items-center flex display-center '>
 
-            {/**pic and name */}
+
             <div className=' col-span-3 grid grid-cols-4 lg:col-span-6 flex display-center   items-center' >
 
 

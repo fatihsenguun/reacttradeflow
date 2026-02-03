@@ -15,8 +15,7 @@ export function InputBox({type,value,onChange}:InputBoxProps) {
             value={value}
             onChange={onChange}
             className="p-3 bg-white/12  h-13 w-full rounded-lg backdrop-blur-md  hover:bg-white/15
-            focus:bg-white/20
-                    placeholder:text-slate-500 transition-all duration-200 focus:outline-none"
+            focus:bg-white/20 placeholder:text-slate-500 transition-all duration-200 focus:outline-none"
         />
     )
 }
