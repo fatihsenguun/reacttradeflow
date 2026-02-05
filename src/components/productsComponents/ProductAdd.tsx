@@ -1,12 +1,60 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { InputBox } from '../generalComponents/InputBox'
+import { supabase } from "../../config/supabaseClient"
+
 
 function ProductAdd() {
 
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false)
 
-  const select = () => {
+  useEffect(() => {
+    uploadImagesToSupabase();
+  }, [selectedFiles])
+
+
+
+  const uploadImagesToSupabase = async () => {
+    const urls: string[] = [];
+
+    for (const file of selectedFiles) {
+      const fileName = `${Date.now()}-${file.name}`;
+
+
+      await supabase.storage.from('tradeflow').upload(fileName, file);
+
+
+
+      const { data: publicUrlData } = supabase.storage
+        .from('tradeflow')
+        .getPublicUrl(fileName);
+
+
+      if (publicUrlData) {
+        urls.push(publicUrlData.publicUrl);
+        console.log(urls);
+      }
+    }
+    return urls;
+  };
+
+
+  const handleSave = async () => {
+
+
+
+    try {
+      setIsLoading(true);
+
+      const uploadedUrls = await (previews)
+    }
+    catch {
+
+    }
+
+
+
   }
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,12 +86,19 @@ function ProductAdd() {
               <label className='block text-sm font-medium text-slate-400 mb-2'>Description</label>
               <textarea className='w-full focus:outline-none bg-white/12  h-13 w-full rounded-lg backdrop-blur-md  hover:bg-white/15 focus:bg-white/20  rounded-md p-3 h-32' />
             </div>
-            <div>
+            <div >
               <label className='block text-sm font-medium text-slate-400 mb-2'>Images</label>
-              <label className="w-24 h-24 flex items-center justify-center border-2 border-dashed border-white/10 rounded-lg cursor-pointer hover:bg-white/5">
-                <input type="file" multiple onChange={handleFileSelect} className="hidden" />
-                <span className="text-2xl text-slate-500">+</span>
-              </label>
+              <div className='flex gap-2'>
+                <label className="w-24 h-24 flex items-center justify-center border-2 border-dashed border-white/10 rounded-lg cursor-pointer hover:bg-white/5">
+                  <input type="file" multiple onChange={handleFileSelect} className="hidden" />
+                  <span className="text-2xl text-slate-500">+</span>
+                </label>
+                {previews.map((image) => (
+                  <label className="w-24 h-24 flex items-center justify-center border-2 border-dashed border-white/10 rounded-lg cursor-pointer hover:bg-white/5">
+                    <img src={image} alt="" />
+                  </label>
+                ))}
+              </div>
 
             </div>
           </div>
