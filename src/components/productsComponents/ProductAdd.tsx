@@ -1,17 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { InputBox } from '../generalComponents/InputBox'
 import { supabase } from "../../config/supabaseClient"
+import api from '../../config/axios';
 
+interface productAdd {
+  name: string,
+  description: string,
+  price: number,
+  stock: number,
+  categoryIds: string[],
+  images: object[]
+
+}
 
 function ProductAdd() {
+
+
 
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false)
-
-  useEffect(() => {
-    uploadImagesToSupabase();
-  }, [selectedFiles])
+  const [name, setName] = useState("")
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0);
+  const [stock, setStock] = useState(0);
+  const [categoryIds, setCategoryIds] = useState([]);
+  const [images, setImages] = useState<string[]>([]);
+  const [image, setImage] = useState();
 
 
 
@@ -20,40 +35,53 @@ function ProductAdd() {
 
     for (const file of selectedFiles) {
       const fileName = `${Date.now()}-${file.name}`;
-
-
       await supabase.storage.from('tradeflow').upload(fileName, file);
-
-
-
       const { data: publicUrlData } = supabase.storage
         .from('tradeflow')
         .getPublicUrl(fileName);
-
 
       if (publicUrlData) {
         urls.push(publicUrlData.publicUrl);
         console.log(urls);
       }
     }
+
     return urls;
   };
 
 
   const handleSave = async () => {
-
-
-
+    if (selectedFiles.length === 0) return alert("Lütfen en az bir resim seçin.");
     try {
+
       setIsLoading(true);
 
-      const uploadedUrls = await (previews)
-    }
-    catch {
+      const uploadedUrls = await uploadImagesToSupabase();
+      const mappedImages = uploadedUrls.map((url) => ({
+        imageUrl: url
+      }));
+         const payload: productAdd = {
+          name: name,
+          description: description,
+          price: price,
+          stock: stock,
+          categoryIds: categoryIds,
+          images: mappedImages,
+
+        }
+
+        const addResponse = await api.post("/rest/api/product/add", payload)
+     
+      if(addResponse.data.result){
+        console.log("ürün eklendi");
+      }
 
     }
-
-
+    catch(error) {
+      console.log(error);
+    }finally{
+      setIsLoading(false)
+    }
 
   }
 
@@ -61,7 +89,6 @@ function ProductAdd() {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files);
       setSelectedFiles(prev => [...prev, ...filesArray]);
-
 
       const newPreviews = filesArray.map(file => URL.createObjectURL(file));
       setPreviews(prev => [...prev, ...newPreviews]);
@@ -80,11 +107,11 @@ function ProductAdd() {
           <div className='lg:col-span-2 space-y-6 bg-white/5 p-6 rounded-lg border border-white/10'>
             <div>
               <label className='block text-sm font-medium text-slate-400 mb-2'>Product Name</label>
-              <InputBox type='text' />
+              <InputBox value={name} onChange={(e) => (setName(e.target.value))} type='text' />
             </div>
             <div>
               <label className='block text-sm font-medium text-slate-400 mb-2'>Description</label>
-              <textarea className='w-full focus:outline-none bg-white/12  h-13 w-full rounded-lg backdrop-blur-md  hover:bg-white/15 focus:bg-white/20  rounded-md p-3 h-32' />
+              <textarea value={description} onChange={(e) => (setDescription(e.target.value))} className='w-full focus:outline-none bg-white/12  h-13 w-full rounded-lg backdrop-blur-md  hover:bg-white/15 focus:bg-white/20  rounded-md p-3 h-32' />
             </div>
             <div >
               <label className='block text-sm font-medium text-slate-400 mb-2'>Images</label>
@@ -107,13 +134,13 @@ function ProductAdd() {
           <div className='space-y-6 bg-white/5 p-6 rounded-lg border border-white/10'>
             <div>
               <label className='block text-sm font-medium  text-slate-400  mb-2'>Price (₺)</label>
-              <InputBox type='number' />
+              <InputBox onChange={(e) => setPrice(Number(e.target.value))} type='number' />
             </div>
             <div>
               <label className='block text-sm font-medium text-slate-400 mb-2'>Stock Quantity</label>
-              <InputBox type='number' />
+              <InputBox onChange={(e) => setStock(Number(e.target.value))} type='number' />
             </div>
-            <button className='w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-md transition-colors'>
+            <button onClick={handleSave} className='w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-md transition-colors'>
               Save Product
             </button>
           </div>

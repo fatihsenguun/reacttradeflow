@@ -84,10 +84,10 @@ function Home() {
       <p className='text-slate-200 text-2xl font-medium'>Dashboard</p>
       <div className='grid grid-cols-1 lg:grid-cols-4 p-6 gap-6 items-stretch text-slate-200'>
 
-        {/* --- SOL TARAF (3 kolon kaplar) --- */}
+
         <div className='lg:col-span-3 grid grid-cols-1 lg:grid-cols-3 gap-6'>
 
-          {/**en üst satır */}
+
 
           <div className='grid grid-cols-3 bg-white/5 backdrop-blur-md border border-white/10   h-26 rounded-lg shadow-sm flex items-center justify-center hover:bg-white/10 cursor-pointer  gap-4 p-3 '>
 
@@ -130,7 +130,7 @@ function Home() {
             </div>
           </div>
 
-          {/* 2. Satır: Büyük Geniş Kutu (3 kolonu da kaplar) */}
+
           <div className='p-5 lg:col-span-3 bg-white/5 backdrop-blur-md border border-white/10 min-h-60 xl:h-120 rounded-lg shadow-sm'>
             <div className='flex '>
               <p>Start :</p>

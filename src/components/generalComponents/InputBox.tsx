@@ -1,8 +1,8 @@
 import React from 'react'
 
 interface InputBoxProps {
-    type: string;
-    value?: string;
+    type: any;
+    value?: any;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 
 }
