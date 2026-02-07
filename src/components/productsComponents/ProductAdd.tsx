@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { InputBox } from '../generalComponents/InputBox'
 import { supabase } from "../../config/supabaseClient"
 import api from '../../config/axios';
+import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router';
 
 interface productAdd {
   name: string,
@@ -14,6 +16,7 @@ interface productAdd {
 }
 
 function ProductAdd() {
+  const navigate = useNavigate();
 
 
 
@@ -31,6 +34,7 @@ function ProductAdd() {
 
 
   const uploadImagesToSupabase = async () => {
+
     const urls: string[] = [];
 
     for (const file of selectedFiles) {
@@ -51,6 +55,7 @@ function ProductAdd() {
 
 
   const handleSave = async () => {
+
     if (selectedFiles.length === 0) return alert("Lütfen en az bir resim seçin.");
     try {
 
@@ -60,26 +65,37 @@ function ProductAdd() {
       const mappedImages = uploadedUrls.map((url) => ({
         imageUrl: url
       }));
-         const payload: productAdd = {
-          name: name,
-          description: description,
-          price: price,
-          stock: stock,
-          categoryIds: categoryIds,
-          images: mappedImages,
+      const payload: productAdd = {
+        name: name,
+        description: description,
+        price: price,
+        stock: stock,
+        categoryIds: categoryIds,
+        images: mappedImages,
 
-        }
+      }
 
-        const addResponse = await api.post("/rest/api/product/add", payload)
-     
-      if(addResponse.data.result=true){
-        
+      const addResponse = await api.post("/rest/api/product/add", payload)
+
+      if (addResponse.data) {
+
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Product has been added",
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          navigate("/products");
+        })
+
+
       }
 
     }
-    catch(error) {
+    catch (error) {
       console.log(error);
-    }finally{
+    } finally {
       setIsLoading(false)
     }
 
