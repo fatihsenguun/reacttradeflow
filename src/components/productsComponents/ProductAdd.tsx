@@ -24,7 +24,7 @@ function ProductAdd() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
-  const [categoryIds, setCategoryIds] = useState([]);
+  const [categoryIds, setCategoryIds] = useState(["069fb15c-6875-4a25-9675-d3720db1c0c9"]);
   const [images, setImages] = useState<string[]>([]);
   const [image, setImage] = useState();
 
@@ -35,9 +35,9 @@ function ProductAdd() {
 
     for (const file of selectedFiles) {
       const fileName = `${Date.now()}-${file.name}`;
-      await supabase.storage.from('tradeflow').upload(fileName, file);
+      await supabase.storage.from('products_images').upload(fileName, file);
       const { data: publicUrlData } = supabase.storage
-        .from('tradeflow')
+        .from('products_images')
         .getPublicUrl(fileName);
 
       if (publicUrlData) {
@@ -72,8 +72,8 @@ function ProductAdd() {
 
         const addResponse = await api.post("/rest/api/product/add", payload)
      
-      if(addResponse.data.result){
-        console.log("ürün eklendi");
+      if(addResponse.data.result=true){
+        
       }
 
     }
