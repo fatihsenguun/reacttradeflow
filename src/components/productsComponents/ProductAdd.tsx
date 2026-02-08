@@ -5,6 +5,7 @@ import api from '../../config/axios';
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router';
 
+
 interface productAdd {
   name: string,
   description: string,
@@ -30,7 +31,33 @@ function ProductAdd() {
   const [categoryIds, setCategoryIds] = useState(["069fb15c-6875-4a25-9675-d3720db1c0c9"]);
   const [images, setImages] = useState<string[]>([]);
   const [image, setImage] = useState();
+  const [categoryFocus, setCategoryFocus] = useState(false);
 
+  const CATEGORY_OPTIONS = [
+
+
+  ]
+
+  useEffect(() => {
+    getCategories();
+
+
+  }, [])
+  const getCategories = async () => {
+    try {
+      const addResponse = await api.get("/rest/api/category/all")
+
+      if (addResponse.data) {
+        console.log(addResponse);
+
+      }
+
+
+    } catch (error) {
+console.log(error);
+    }
+
+  }
 
 
   const uploadImagesToSupabase = async () => {
@@ -124,6 +151,12 @@ function ProductAdd() {
             <div>
               <label className='block text-sm font-medium text-slate-400 mb-2'>Product Name</label>
               <InputBox value={name} onChange={(e) => (setName(e.target.value))} type='text' />
+            </div>
+            <div>
+              <label className='block text-sm font-medium text-slate-400 mb-2'>Categories</label>
+
+
+
             </div>
             <div>
               <label className='block text-sm font-medium text-slate-400 mb-2'>Description</label>

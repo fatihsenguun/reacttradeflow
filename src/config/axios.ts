@@ -20,7 +20,7 @@ api.interceptors.request.use(
     }
 );
 
-//response
+
 api.interceptors.response.use(
     (response:any) => response,
     async (error:any) => {
