@@ -47,28 +47,27 @@ function Category() {
 
     return (
         <div>
-            <div className='flex justify-between'>
-                <p className=' text-slate-200 text-2xl font-medium'>Category</p>
-                <button className=' bg-white/15 backdrop-blur-md border border-white/10 cursor-pointer hover:bg-white/10   w-30 h-10 text-sm rounded-lg' onClick={() => navigate("/category/add")}>+ Add Category </button>
+
+            <div className='flex  justify-between items-center mb-6'>
+                <p className='text-slate-200 text-2xl font-medium'>Category</p>
+                <button className='bg-white/5 backdrop-blur-md border border-white/10 cursor-pointer hover:bg-white/10 w-30 h-10 text-sm rounded-lg text-slate-200 transition-colors' onClick={() => navigate("/category/add")}>+ Add Category </button>
             </div>
 
-            <div className='p-6'>
-                <div className=' bg-white/15 backdrop-blur-md border border-white/10   h-15 rounded-lg shadow-sm flex items-left justify-left   gap-4 p-3 '>
-        
 
-                    <div className=' pl-20 w-full h-full items-left flex'>
+            <div className='p-6 text-slate-200 flex flex-col gap-4'>
+                
 
-                        <div className='display-center flex  items-left' >
-                            <span className='mt-1 text-left font-medium'>Category Name</span>
+                <div className='bg-white/15 backdrop-blur-md border border-white/10 h-15 rounded-lg shadow-sm flex items-center p-3 text-slate-200'>
+                    <div className='w-full h-full items-center flex'>
 
+                        <div className='display-center flex items-center ml-14' >
+                            <span className='font-medium '>Category Name</span>
                         </div>
-
                     </div>
-
-    
-
                 </div>
-                {categories.map((data:data) => (
+
+
+                {categories.map((data: data) => (
                     <CategoryBox key={data.id} data={data} />
                 ))}
             </div>
