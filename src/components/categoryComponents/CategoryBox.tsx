@@ -57,7 +57,7 @@ function CategoryBox({ data }: { data: any }) {
         });
     }
 
-    console.log(data);
+
     return (
         <div>
             <div className='bg-white/5 backdrop-blur-md border border-white/10 cursor-pointer  hover:bg-white/10    h-23 rounded-lg shadow-sm flex items-center justify-center   gap-4 p-3 '>
