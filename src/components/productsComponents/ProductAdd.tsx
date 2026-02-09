@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { InputBox } from '../generalComponents/InputBox'
 import { supabase } from "../../config/supabaseClient"
 import api from '../../config/axios';
 import Swal from 'sweetalert2'
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from '@headlessui/react'
 import { useNavigate } from 'react-router';
 
 
@@ -16,19 +16,18 @@ interface productAdd {
   images: object[]
 
 }
+interface categoryInt {
+  id: string,
+  name: string
+
+}
 
 function ProductAdd() {
   const navigate = useNavigate();
-  const people = [
-    { id: 1, name: 'Durward Reynolds' },
-    { id: 2, name: 'Kenton Towne' },
-    { id: 3, name: 'Therese Wunsch' },
-    { id: 4, name: 'Benedict Kessler' },
-    { id: 5, name: 'Katelyn Rohan' },
-  ]
 
 
 
+  const [categories, setCategories] = useState<categoryInt[]>([])
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false)
@@ -40,7 +39,7 @@ function ProductAdd() {
   const [images, setImages] = useState<string[]>([]);
   const [image, setImage] = useState();
   const [categoryFocus, setCategoryFocus] = useState(false);
-  const [selectedPerson, setSelectedPerson] = useState(people[0])
+
 
   const CATEGORY_OPTIONS = [
 
@@ -58,6 +57,7 @@ function ProductAdd() {
 
       if (addResponse.data) {
         console.log(addResponse);
+        setCategories(addResponse.data.data)
 
       }
 
@@ -161,17 +161,51 @@ function ProductAdd() {
               <label className='block text-sm font-medium text-slate-400 mb-2'>Product Name</label>
               <InputBox value={name} onChange={(e) => (setName(e.target.value))} type='text' />
             </div>
-            <div>
+            <div className='w-full'>
+              <label className='block text-sm font-medium text-slate-400 mb-2'>Categories</label>
 
-              <Listbox value={selectedPerson} onChange={setSelectedPerson}>
-                <ListboxButton>{selectedPerson.name}</ListboxButton>
-                <ListboxOptions anchor="bottom">
-                  {people.map((person) => (
-                    <ListboxOption key={person.id} value={person} className="data-focus:bg-blue-100">
-                      {person.name}
-                    </ListboxOption>
-                  ))}
-                </ListboxOptions>
+              <Listbox value={categoryIds} onChange={setCategoryIds} multiple>
+                <div className='relative mt-1'>
+
+
+                  <ListboxButton className="relative w-full min-h-13 bg-white/12 p-3 rounded-lg text-left border border-white/10" >
+                    {categoryIds.length > 0 ? categories.filter(c => categoryIds.includes(c.id)).map(c => c.name).join(', ') : "Select Category"}
+                  </ListboxButton>
+                  <Transition
+                    as={Fragment}
+                    leave='transition ease-in duration-100'
+                    leaveFrom='opacity-100'
+                    leaveTo='opacity-0'
+                  >
+
+                    <ListboxOptions className="absolute z-50 bg-slate-900 py-1 shadow-2xl border border-white max-h-60 rounded-lg w-full overflow-auto">
+                      {categories.map((category) => (
+                        <ListboxOption key={category.id} value={category.id}
+                          className={({ active, selected }) =>
+                            `relative cursor-pointer select-none py-3 px-4 transition-colors ${active ? 'bg-white/10 text-white' : 'text-slate-300'}
+                          ${selected ? 'bg-indigo-600/20 text-indigo-400' : ''} `}>
+                          {({ selected }) => (
+                            <div className='flex items-center justify-between'>
+                              <span className={`block truncate ${selected ? 'font-semibold' : 'font-normal'}`}>
+                                {category.name}
+
+                              </span>
+                              {selected && (
+                                <span>
+                                  ✓
+                                </span>
+                              )}
+                            </div>
+                          )}
+
+                        </ListboxOption>
+                      ))}
+                    </ListboxOptions>
+                  </Transition>
+
+
+
+                </div>
               </Listbox>
 
 
