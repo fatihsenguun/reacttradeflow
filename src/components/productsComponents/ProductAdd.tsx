@@ -3,6 +3,7 @@ import { InputBox } from '../generalComponents/InputBox'
 import { supabase } from "../../config/supabaseClient"
 import api from '../../config/axios';
 import Swal from 'sweetalert2'
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import { useNavigate } from 'react-router';
 
 
@@ -18,6 +19,13 @@ interface productAdd {
 
 function ProductAdd() {
   const navigate = useNavigate();
+  const people = [
+    { id: 1, name: 'Durward Reynolds' },
+    { id: 2, name: 'Kenton Towne' },
+    { id: 3, name: 'Therese Wunsch' },
+    { id: 4, name: 'Benedict Kessler' },
+    { id: 5, name: 'Katelyn Rohan' },
+  ]
 
 
 
@@ -32,6 +40,7 @@ function ProductAdd() {
   const [images, setImages] = useState<string[]>([]);
   const [image, setImage] = useState();
   const [categoryFocus, setCategoryFocus] = useState(false);
+  const [selectedPerson, setSelectedPerson] = useState(people[0])
 
   const CATEGORY_OPTIONS = [
 
@@ -54,7 +63,7 @@ function ProductAdd() {
 
 
     } catch (error) {
-console.log(error);
+      console.log(error);
     }
 
   }
@@ -153,7 +162,18 @@ console.log(error);
               <InputBox value={name} onChange={(e) => (setName(e.target.value))} type='text' />
             </div>
             <div>
-              <label className='block text-sm font-medium text-slate-400 mb-2'>Categories</label>
+
+              <Listbox value={selectedPerson} onChange={setSelectedPerson}>
+                <ListboxButton>{selectedPerson.name}</ListboxButton>
+                <ListboxOptions anchor="bottom">
+                  {people.map((person) => (
+                    <ListboxOption key={person.id} value={person} className="data-focus:bg-blue-100">
+                      {person.name}
+                    </ListboxOption>
+                  ))}
+                </ListboxOptions>
+              </Listbox>
+
 
 
 
