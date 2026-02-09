@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import logo from "../../assets/logoTradeFlow.png"
 import HeaderButton from './HeaderButton';
-import { GoHome, GoInbox, GoTag, GoPeople, GoGear, GoListUnordered } from "react-icons/go";
+import { GoHome, GoInbox, GoTag, GoPeople, GoGear, GoFileDirectory, GoListUnordered } from "react-icons/go";
+
 import { useNavigate } from 'react-router';
 
 function Header() {
@@ -48,6 +49,7 @@ function Header() {
                             <HeaderButton name="Dashboard" path='/' icon={<GoHome />} />
                             <HeaderButton name="Orders" path='/orders' icon={<GoInbox />} />
                             <HeaderButton name="Products" path='/products' icon={<GoTag />} />
+                            <HeaderButton name="Category" path='/category' icon={<GoFileDirectory />} />
                             <HeaderButton name="Customers" path='/customers' icon={<GoPeople />} />
                             <HeaderButton name="Settings" path='/settings' icon={<GoGear />} />
                         </div>

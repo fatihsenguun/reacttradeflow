@@ -5,6 +5,7 @@ import api from '../../config/axios';
 import Swal from 'sweetalert2'
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from '@headlessui/react'
 import { useNavigate } from 'react-router';
+import { GoChevronLeft } from 'react-icons/go';
 
 
 interface productAdd {
@@ -150,7 +151,12 @@ function ProductAdd() {
 
   return (
     <div>
-      <p className='text-2xl font-medium mb-6'>Add New Product</p>
+      <div className='flex'>
+        <button onClick={() => navigate('/products')} className='w-10 h-8 cursor-pointer text-slate-200 hover:text-slate-white/10'>
+          <GoChevronLeft className='w-10 h-8 ' />
+        </button>
+        <p className='text-2xl font-medium mb-6'>Add New Product</p>
+      </div>
 
       <div className='p-6 text-slate-200'>
 

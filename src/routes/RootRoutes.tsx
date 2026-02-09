@@ -9,6 +9,8 @@ import Settings from '../pages/Settings'
 import Customers from '../pages/Customers'
 import Profile from '../pages/Profile'
 import ProductAdd from '../components/productsComponents/ProductAdd'
+import Category from '../pages/Category'
+import CategoryAdd from '../components/categoryComponents/CategoryAdd'
 
 function RootRoutes() {
     return (
@@ -23,6 +25,8 @@ function RootRoutes() {
                 <Route path='/settings' element={<Settings />} />
                 <Route path='/customers' element={<Customers />} />
                 <Route path='/profile' element={<Profile />} />
+                <Route path='/category' element={<Category />} />
+                <Route path='/category/add' element={<CategoryAdd />} />
             </Route>
 
 

@@ -11,7 +11,7 @@ function ProductBox({ data }: { data: any }) {
 const imageLink = data.images[0].imageUrl
 console.log(imageLink);
     return (
-        <div className='grid grid-cols-6 bg-white/5 backdrop-blur-md border border-white/10 cursor-pointer  hover:bg-white/10    h-26 rounded-lg shadow-sm flex items-center justify-center   gap-4 p-3 '>
+        <div className='grid grid-cols-6 bg-white/5 backdrop-blur-md border border-white/10 cursor-pointer  hover:bg-white/10    h-23 rounded-lg shadow-sm flex items-center justify-center   gap-4 p-3 '>
             <div className='col-span-2 w-full h-full items-center flex '>
 
                 {/**pic and name */}
@@ -37,9 +37,8 @@ console.log(imageLink);
 
             <div className='col-span-3 items-center flex w-full h-full'>
                 <div className='display-center overflow-hidden truncate  flex  items-center' >
-                    <span>{data.categories.map((category: DtoCategory) => (
-                        category.name
-                    ))}</span>
+                    <span>{data.categories.map((category: DtoCategory)=>category.name).join(', ')}
+                    </span>
 
                 </div>
             </div>
