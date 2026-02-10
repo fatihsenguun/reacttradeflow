@@ -36,10 +36,8 @@ function Header() {
 
                 {/* Logo Section */}
                 <div className="flex items-center gap-3 px-6 h-24 border-b border-white/5 bg-slate-900/50">
-                    <img src={logo} alt="TradeFlow Logo" className="h-10 w-auto object-contain" />
-                    <span className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
-                        TradeFlow
-                    </span>
+                    <img src={logo} alt="TradeFlow Logo" className="h-15 w-auto object-contain" />
+                   
                 </div>
 
                 {/* Navigation Links */}
