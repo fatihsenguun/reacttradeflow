@@ -36,7 +36,7 @@ function ProductAdd() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
-  const [categoryIds, setCategoryIds] = useState(["069fb15c-6875-4a25-9675-d3720db1c0c9"]);
+  const [categoryIds, setCategoryIds] = useState([]);
   const [images, setImages] = useState<string[]>([]);
   const [image, setImage] = useState();
   const [categoryFocus, setCategoryFocus] = useState(false);
@@ -114,6 +114,7 @@ function ProductAdd() {
 
       const addResponse = await api.post("/rest/api/product/add", payload)
 
+      console.log(addResponse);
       if (addResponse.data) {
 
         Swal.fire({

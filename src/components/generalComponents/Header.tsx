@@ -64,10 +64,10 @@ function Header() {
                 </div>
 
                 {/* Profile Section */}
-                <div className="p-4 border-t border-white/5 bg-slate-900/30">
+                <div className="p-4  border-t border-white/5 bg-slate-900/30">
                     <button
                         onClick={() => navigate("/profile")}
-                        className="w-full group flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-white/5"
+                        className="w-full cursor-pointer group flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-white/5"
                     >
                         <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center shrink-0 border border-indigo-500/30 group-hover:border-indigo-400/50 transition-colors">
                             <span className="text-sm font-bold text-indigo-400 group-hover:text-indigo-300">
