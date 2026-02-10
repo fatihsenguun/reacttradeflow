@@ -33,17 +33,17 @@
 
 ### 1. Login Screen
 A modern and stylish login page featuring ambient light effects and glass panels.
-![Login Screen](screenshots/login)
+![Login Screen](screenshots/login.png)
 
 
 ### 2. Dashboard & Charts
 The main screen displaying general sales status and summary information.
-![Dashboard](screenshots/dashboard)
+![Dashboard](screenshots/dashboard.png)
 
 
 ### 3. Product Management
 The panel where products are listed with stock and category information.
-![Products](screenshots/products)
+![Products](screenshots/products.png)
 
 
 
