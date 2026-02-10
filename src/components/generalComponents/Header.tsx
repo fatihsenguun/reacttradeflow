@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import logo from "../../assets/logoTradeFlow.png"
 import HeaderButton from './HeaderButton';
-import { GoHome, GoInbox, GoTag, GoPeople, GoGear, GoFileDirectory, GoListUnordered } from "react-icons/go";
-
+import { GoHome, GoInbox, GoTag, GoPeople, GoGear, GoFileDirectory, GoX, GoListUnordered } from "react-icons/go";
 import { useNavigate } from 'react-router';
 
 function Header() {
@@ -12,80 +11,84 @@ function Header() {
     const role = localStorage.getItem("role");
 
     const navigate = useNavigate();
-
-
-
     const [isOpen, setIsOpen] = useState(false);
+
     return (
-        <div>
-            <button onClick={() => setIsOpen(!isOpen)}
-                className={`md:hidden z-[100]   fixed top-4 left-2  p-2 rounded-md bg-slate-800 text-white  ${isOpen ? "translate-x-72  " : ""} `} >
-                <svg className={`w-6 h-6 `} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} /></svg>
+        <>
+            {/* Mobile Toggle Button */}
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="md:hidden fixed top-4 left-4 z-[60] p-2 rounded-lg bg-slate-800/90 text-white backdrop-blur-sm border border-white/10 shadow-lg hover:bg-slate-700 transition-all"
+            >
+                {isOpen ? <GoX className="w-6 h-6" /> : <GoListUnordered className="w-6 h-6" />}
             </button>
+
+            {/* Mobile Overlay */}
             {isOpen && (
-                <div className='fixedinset-0 bg-black/50 z-40 md:hidden'
-                    onClick={() => setIsOpen(false)}>
-
-
-                </div>
+                <div
+                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+                    onClick={() => setIsOpen(false)}
+                />
             )}
 
-            <div>
-                <div>
+            {/* Sidebar */}
+            <div className={`fixed top-0 left-0 z-50 h-screen w-72 bg-[#0b1120] border-r border-white/5 transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 flex flex-col`}>
 
+                {/* Logo Section */}
+                <div className="flex items-center gap-3 px-6 h-24 border-b border-white/5 bg-slate-900/50">
+                    <img src={logo} alt="TradeFlow Logo" className="h-10 w-auto object-contain" />
+                    <span className="text-xl font-bold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
+                        TradeFlow
+                    </span>
                 </div>
-                <div className={` w-72 fixed top-0   left-0 z-40 h-screen bg-slate-800 border-r border-slate-800 transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`} >
 
-                    <div className='p-4 h-full flex flex-col bg-slate-950 '>
-                        <div className=' h-20 flex items-center bg-slate-950 '>
-                            <img src={logo} className=' h-16 w-auto' />
-                            <div className='text-white'>
-
-                            </div>
-
-                        </div>
-
-                        <div className='flex flex-col  gap-1'>
-                            <HeaderButton name="Dashboard" path='/' icon={<GoHome />} />
-                            <HeaderButton name="Orders" path='/orders' icon={<GoInbox />} />
-                            <HeaderButton name="Products" path='/products' icon={<GoTag />} />
-                            <HeaderButton name="Category" path='/category' icon={<GoFileDirectory />} />
-                            <HeaderButton name="Customers" path='/customers' icon={<GoPeople />} />
-                            <HeaderButton name="Settings" path='/settings' icon={<GoGear />} />
-                        </div>
-
-                        <div className='mt-auto'></div>
-
-                        {/**profile button */}
-
-
-                        <button onClick={() => navigate("/profile")} className='pt-4'>
-                            <div className='flex items-center gap-3 p-3 rounded-xl bg-slate-800 hover:bg-slate-700 cursor-pointer transition-colors'>
-
-
-                                <div className='w-10 h-10 rounded-full bg-slate-600 flex items-center justify-center shrink-0'>
-                                    <span className='text-sm font-bold text-white'>{(firstName?.charAt(0) || "").toUpperCase() + (lastName?.charAt(0) || "").toUpperCase()}</span>
-                                </div>
-
-                                <div className='flex flex-col overflow-hidden w-full'>
-                                    <span className='text-sm flex font-medium text-white truncate'>{firstName + " " + lastName}</span>
-                                    <span className='w-full flex display-start text-xs text-slate-400'>{role}</span>
-                                </div>
-                            </div>
-                        </button>
-
-
-
-
-
+                {/* Navigation Links */}
+                <div className="flex-1 overflow-y-auto py-6 px-4 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+                    <div className="mb-2 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                        Main Menu
                     </div>
 
+                    <div className="flex flex-col gap-2">
+                        <HeaderButton name="Dashboard" path='/' icon={<GoHome />} />
+                        <HeaderButton name="Orders" path='/orders' icon={<GoInbox />} />
+                        <HeaderButton name="Products" path='/products' icon={<GoTag />} />
+                        <HeaderButton name="Category" path='/category' icon={<GoFileDirectory />} />
+                        <HeaderButton name="Customers" path='/customers' icon={<GoPeople />} />
+                    </div>
 
+                    <div className="mt-8 mb-2 px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                        System
+                    </div>
+
+                    <div className="flex flex-col gap-2">
+                        <HeaderButton name="Settings" path='/settings' icon={<GoGear />} />
+                    </div>
+                </div>
+
+                {/* Profile Section */}
+                <div className="p-4 border-t border-white/5 bg-slate-900/30">
+                    <button
+                        onClick={() => navigate("/profile")}
+                        className="w-full group flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-white/5"
+                    >
+                        <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center shrink-0 border border-indigo-500/30 group-hover:border-indigo-400/50 transition-colors">
+                            <span className="text-sm font-bold text-indigo-400 group-hover:text-indigo-300">
+                                {(firstName?.charAt(0) || "").toUpperCase()}{(lastName?.charAt(0) || "").toUpperCase()}
+                            </span>
+                        </div>
+
+                        <div className="flex flex-col items-start overflow-hidden">
+                            <span className="text-sm font-medium text-slate-200 group-hover:text-white truncate transition-colors">
+                                {firstName} {lastName}
+                            </span>
+                            <span className="text-xs text-slate-500 group-hover:text-slate-400 transition-colors">
+                                {role}
+                            </span>
+                        </div>
+                    </button>
                 </div>
             </div>
-
-
-        </div>
+        </>
     )
 }
 
